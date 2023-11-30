@@ -17,14 +17,14 @@ jobs:
       matrix:
         os: [arch]
     steps:
-      - name: build container ${{ matrix.version }}
+      - name: build container ${{ matrix.os }}
         id: build-container
         uses: redhat-actions/buildah-build@v2
         with:
           image: ghcr.io/onemorebyte/dev-container
-          tags: ${{ matrix.version }}
+          tags: ${{ matrix.os }}
           containerfiles: |
-            ./Containerfile.${{ matrix.version }}
+            ./Containerfile.${{ matrix.os }}
 
       - name: push to image repo
         uses: redhat-actions/push-to-registry@v2
