@@ -30,8 +30,6 @@ RUN yay -S --answerclean None --answerdiff None --answeredit None --noconfirm \
     ninja \
     meson \
     yadm
-    
-
 
 # Install the nightly toolchain
 RUN rustup default nightly
