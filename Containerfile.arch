@@ -1,0 +1,39 @@
+FROM archlinux:base
+
+# Update and setup non-root user
+RUN pacman -Syu --noconfirm
+RUN pacman -S --noconfirm sudo zsh
+RUN echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN useradd -m jsck -G wheel -s /bin/zsh
+USER jsck
+WORKDIR /home/jsck
+RUN sudo pacman -S --needed --noconfirm git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+# Answer all of yay's questions and install requirements
+RUN yay -S --answerclean None --answerdiff None --answeredit None --noconfirm \
+    kubectx \
+    kubectl \
+    helm \
+    python \
+    python-venv \
+    python-pip \
+    poetry \
+    neovim \
+    gcloud \
+    tmux \
+    rustup \
+    go \
+    actionlint \
+    code-server \
+    jq \
+    yq \
+    curl \
+    ninja \
+    meson \
+    yadm
+    
+
+
+# Install the nightly toolchain
+RUN rustup default nightly
+
+
