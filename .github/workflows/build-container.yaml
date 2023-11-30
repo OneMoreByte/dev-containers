@@ -17,6 +17,7 @@ jobs:
       matrix:
         os: [arch]
     steps:
+      - uses: actions/checkout@v3
       - name: build container ${{ matrix.os }}
         id: build-container
         uses: redhat-actions/buildah-build@v2
